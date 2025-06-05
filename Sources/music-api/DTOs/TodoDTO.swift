@@ -1,6 +1,6 @@
 import Fluent
 import Vapor
-
+// Data Transfer Object x86 Intel/AMD buildx
 struct TodoDTO: Content {
     var id: UUID?
     var title: String?
