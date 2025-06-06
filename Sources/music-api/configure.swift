@@ -18,7 +18,7 @@ app.databases.use(DatabaseConfigurationFactory.mysql(
     ), as: .mysql)
 
     app.migrations.add(CreateAlbum())
-
+    app.migrations.add(CreateTodo())
     // register routes
     try routes(app)
 }
