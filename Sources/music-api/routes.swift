@@ -40,7 +40,14 @@ func routes(_ app: Application) throws {
         existingAlbum.image = updatedAlbum.image
         try await existingAlbum.update(on: req.db)
         return existingAlbum
-
+    }
+    //Codigo Status 200, 404, 400
+    app.delete("albums",":id"){ req async throws -> HTTPStatus in
+        guard let existingAlbum = try await Album.find(req.parameters.get("id"),on: req.db) else {
+            throw Abort(.notFound,reason: "El registro no ha sido encontrado")
+        }
+        try await existingAlbum.delete(on: req.db)
+        return .noContent
     }
 
     try app.register(collection: TodoController())
