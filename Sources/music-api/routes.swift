@@ -7,12 +7,18 @@ func routes(_ app: Application) throws {
     }
 
     app.get("hello") { req async -> String in
-        "Hello, world!"
+        "Hello, worrld!"
     }
     
     app.get("albums"){ req async throws -> [Album] in
         let albums = try await Album.query(on: req.db).all()
         return albums
+    }
+    
+    app.post("albums"){ req async throws -> Album in
+        let album = try req.content.decode(Album.self)
+        try await album.save(on:req.db)
+        return album
     }
 
     try app.register(collection: TodoController())
